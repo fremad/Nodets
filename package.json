@@ -4,9 +4,10 @@
   "description": "This is to learn typescript",
   "main": "app.js",
   "scripts": {
+    "prestart": "npm run build-ts",
     "start": "node dist/app.js",
     "build-ts": "tsc",
-    "test": "mocha -r ts-node/register test/app.spec.ts"
+    "test": "mocha -r ts-node/register test/task.spec.ts"
   },
   "repository": {
     "type": "git",
@@ -30,6 +31,9 @@
     "typescript": "^3.3.1"
   },
   "dependencies": {
-    "express": "^4.16.4"
+    "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.9"
   }
 }

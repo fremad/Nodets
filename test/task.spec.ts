@@ -18,9 +18,9 @@ describe('This is a test', () => {
 
 describe('API test', () => {
     it('test should work', () => {
-        return chai.request(app).get('/')
+        return chai.request(app).get('/task')
             .then(res => {
-                chai.expect(res.text).to.eql('Hello World!')
+                chai.expect(res).to.have.status(200)
             })
     })
 })
