@@ -13,6 +13,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const bodyParser = __importStar(require("body-parser"));
 const routes_1 = __importDefault(require("./routes"));
+require("./database/db");
 var cors = require('cors');
 const app = express_1.default();
 var http = require('http');
@@ -27,14 +28,19 @@ app.use(bodyParser.json());
  * Defining routes for controllers
  */
 app.use('/task', routes_1.default);
+/**
+ * Defualt error catcher
+ */
 app.use(function (req, res, next) {
     var err = new Error('Not Found');
     res.status(404);
     res.json(err.message);
 });
+/**
+ * Setup server port and https
+ */
 app.set('port', 3000);
 var server = http.createServer(app);
 server.listen(port);
-app.listen(port, () => console.log(`Example app listening on port ${port}!`));
 exports.default = app;
 //# sourceMappingURL=app.js.map
