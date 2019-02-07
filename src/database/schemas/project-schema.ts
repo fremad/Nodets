@@ -1,18 +1,17 @@
 import { Schema } from "mongoose";
 
-
 export default new Schema({
     name: {
         type: String,
         required: true,
         minlength: 1,
-        maxlength: 50
+        maxlength: 40
     },
     description: {
         type: String,
-        required: true,
+        required: false,
         maxlength: 500
     },
-    projects: [{type: Schema.Types.ObjectId, ref: 'projectEntry'}],
-    user: [{type: Schema.Types.ObjectId, ref: 'userEntry'}]
-});
+    tasks: [{type: Schema.Types.ObjectId, ref: 'taskEntry'}],
+
+})

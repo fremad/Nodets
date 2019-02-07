@@ -1,6 +1,8 @@
 import { Document, connect, connection, model, Schema } from "mongoose";
-import { Task } from '../models/task-model';
-
+import { Task, Project, User } from '../models/task-model';
+import taskSchema from './schemas/task-schema'
+import projectSchema from "./schemas/project-schema";
+import userSchema from "./schemas/user-schema";
 
 /**
  * Setup database
@@ -12,29 +14,15 @@ connection.once('open', arg => {
 });
 
 /**
- * Define schemas
- */
-var taskSchema = new Schema({
-    name: {
-        type: String,
-        required: true,
-        minlength: 1,
-        maxlength: 50
-    },
-    description: {
-        type: String,
-        required: true,
-        maxlength: 500
-    }
-})
-
-
-/**
  * Interfaces to models for types
  */
 export interface ITask extends Task, Document { }
+export interface IProject extends Project, Document { }
+export interface IUser extends User, Document {}
 
 /**
  * Initialize schemas into model
  */
 export const Taskmodel = model<ITask>("taskEntry", taskSchema);
+export const Projectmodel = model<IProject>("projectEntry", projectSchema)
+export const Usermodel = model<IUser>("userEntry",userSchema)
