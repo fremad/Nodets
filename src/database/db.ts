@@ -37,4 +37,4 @@ export interface ITask extends Task, Document { }
 /**
  * Initialize schemas into model
  */
-model<ITask>("taskEntry", taskSchema);
+export const Taskmodel = model<ITask>("taskEntry", taskSchema);
