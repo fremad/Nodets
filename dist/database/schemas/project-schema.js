@@ -6,15 +6,13 @@ exports.default = new mongoose_1.Schema({
         type: String,
         required: true,
         minlength: 1,
-        maxlength: 50
+        maxlength: 40
     },
     description: {
         type: String,
-        required: true,
+        required: false,
         maxlength: 500
     },
-    projects: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'projectEntry' }],
-    user: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'userEntry' }],
-    created_date: Date,
+    tasks: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'taskEntry' }],
 });
-//# sourceMappingURL=task-schema.js.map
+//# sourceMappingURL=project-schema.js.map

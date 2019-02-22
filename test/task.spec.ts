@@ -1,6 +1,5 @@
 import chai from 'chai'
 import chaiHttp from 'chai-http';
-
 import app from '../src/app'
 import { model } from 'mongoose'
 import { ITask, Taskmodel, IProject, Projectmodel } from "../src/database/db";
@@ -14,7 +13,6 @@ chai.use(chaiHttp);
 /**
  * Database query tests
  */
-
 describe('Tasks', () => {
 
     // Clear DB before use
@@ -32,8 +30,8 @@ describe('Tasks', () => {
             return chai.request(app)
                 .get('/task')
                 .then(res => {
-                    chai.expect(res).to.have.status(200),
-                        chai.expect(res.body.tasks).to.be.a('array')
+                    chai.expect(res).to.have.status(200)
+                    chai.expect(res.body.tasks).to.be.a('array')
                     chai.expect(res.body.count).to.equal(0)
                 })
         })
@@ -107,6 +105,11 @@ describe('Tasks', () => {
             })
 
         })
+        it('Check Seed method', (done) => {
+            seedTasks().then((data) => {
+                done();
+            })
+        })
     })
 })
 
@@ -132,13 +135,20 @@ function generateStringWithLength(n: Number) {
 function seedTasks() {
 
     /**
-     * Initialize tasks for db
+     * Seed tasks for db
      */
-    let t1 = new Taskmodel({
-        name: "Task1",
-        description: "This is a description"
-    });
-
-    // Save data
-    t1.save();
+    return new Promise((resolve, reject) => {
+        Taskmodel.insertMany([{
+            name: "Clean my home",
+            description: "You are supposed to clean our home",
+        }, {
+            name: "Work out",
+            description: "Ypu should work out",
+        }, {
+            name: "Work out",
+            description: "Ypu should work out",
+        }]).then((data) => {
+            resolve(data)
+        })
+    })
 }

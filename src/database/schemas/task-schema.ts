@@ -14,5 +14,6 @@ export default new Schema({
         maxlength: 500
     },
     projects: [{type: Schema.Types.ObjectId, ref: 'projectEntry'}],
-    user: [{type: Schema.Types.ObjectId, ref: 'userEntry'}]
+    user: [{type: Schema.Types.ObjectId, ref: 'userEntry'}],
+    created_date: Date,
 });

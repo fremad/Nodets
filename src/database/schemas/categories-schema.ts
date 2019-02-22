@@ -4,13 +4,12 @@ export default new Schema({
     name: {
         type: String,
         required: true,
-        minlength: 1,
         maxlength: 40
     },
     description: {
         type: String,
-        required: false,
-        maxlength: 500
+        required: true
     },
     tasks: [{type: Schema.Types.ObjectId, ref: 'taskEntry'}],
+    // goals:
 })

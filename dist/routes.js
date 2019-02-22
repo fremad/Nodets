@@ -9,7 +9,13 @@ const router = express_1.default();
 /**
  *  Routes for the task controller
  */
-router.route('/').get(taskcontroller_1.getAllTasks);
+router.route('/')
+    .get(taskcontroller_1.getAllTasks)
+    .post();
+router.route('/:id')
+    .get(taskcontroller_1.getTask)
+    .put(taskcontroller_1.updateTask)
+    .delete(taskcontroller_1.deleteTask);
 /**
  * Additional routes should be placed here
  */
