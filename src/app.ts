@@ -17,6 +17,11 @@ app.use(cors())
 app.use(bodyParser.json());
 
 /**
+ * Serve Angular app
+ */
+app.use(express.static(__dirname + "/../dist/Webdashboard"));
+
+/**
  * Defining routes for controllers
  */
 app.use('/task', allroutes)
