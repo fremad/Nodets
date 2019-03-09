@@ -16,4 +16,8 @@ export default new Schema({
     projects: [{type: Schema.Types.ObjectId, ref: 'projectEntry'}],
     user: [{type: Schema.Types.ObjectId, ref: 'userEntry'}],
     created_date: Date,
+    estimated_time: {
+        type: Number,
+        required: false
+    }
 });

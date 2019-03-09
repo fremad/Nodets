@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const task_acces_1 = require("../DAL/task-acces");
+const task_model_1 = require("../models/task-model");
 /**
  * Retrieves all Tasks
  */
@@ -11,8 +12,10 @@ function getAllTasks(req, res) {
             count: data.length,
             tasks: data.map((tasks) => {
                 return {
+                    _id: tasks._id,
                     name: tasks.name,
-                    desription: tasks.description
+                    description: tasks.description,
+                    estimated_time: tasks.estimated_time
                 };
             }),
             request: {
@@ -33,7 +36,15 @@ exports.getAllTasks = getAllTasks;
  * Creates a Task
  */
 function createTask(req, res) {
-    console.log("createTask called");
+    let tmp = new task_model_1.Task();
+    tmp.name = req.body['name'];
+    tmp.description = req.body['description'];
+    tmp.estimated_time = req.body['estimated_time'];
+    task_acces_1.DB_createTask(tmp).then((data) => {
+        res.status(201).json({ id: data._id });
+    }, (err) => {
+        res.status(404).json({ msg: 'Creation didn\'t work' });
+    });
 }
 exports.createTask = createTask;
 /**
@@ -56,19 +67,35 @@ exports.getTask = getTask;
  * Updates an existing task
  */
 function updateTask(req, res) {
-    console.log('Update tasks called');
+    // console.log('Update tasks called')
     const id = req.params.id;
+    //TODO make this into a ctor of Task (cleaner)
+    let tmp = new task_model_1.Task();
+    tmp.name = req.body["name"];
+    tmp.description = req.body["description"];
+    tmp.category = req.body["category"];
+    tmp.email = req.body["email"];
+    tmp.goal = req.body["goal"];
+    tmp.user = req.body["user"];
+    tmp.project = req.body["project"];
+    tmp.estimated_time = req.body["estimated_time"];
+    task_acces_1.DB_updateTask(id, tmp).then((data) => {
+        res.status(204).json({});
+    }, (err) => {
+        res.status(404).json({ msg: "Update could not be performed" });
+        console.log('Error happened');
+    });
 }
 exports.updateTask = updateTask;
 /**
  * Deletes a sepcified task
  */
 function deleteTask(req, res) {
-    console.log("Delete tasks Called");
     const id = req.params.id;
     task_acces_1.DB_deleteTask(id).then((data) => {
-        res.status(404);
+        res.status(204).json({});
     }, (err) => {
+        res.status(404).json({ msg: "Not found" });
         console.log("Item couldn't be deleted");
     });
 }

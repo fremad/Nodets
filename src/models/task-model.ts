@@ -1,4 +1,5 @@
 export class Task {
+    _id : any;
     name: string;
     email: string;
     description: string;
@@ -6,6 +7,7 @@ export class Task {
     category: Category;
     project: Project;
     user: User[];
+    estimated_time: number;
 }
 
 //TODO move to seperate file

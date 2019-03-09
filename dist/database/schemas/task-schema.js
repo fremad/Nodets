@@ -16,5 +16,9 @@ exports.default = new mongoose_1.Schema({
     projects: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'projectEntry' }],
     user: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'userEntry' }],
     created_date: Date,
+    estimated_time: {
+        type: Number,
+        required: false
+    }
 });
 //# sourceMappingURL=task-schema.js.map

@@ -11,7 +11,7 @@ const router = express_1.default();
  */
 router.route('/')
     .get(taskcontroller_1.getAllTasks)
-    .post();
+    .post(taskcontroller_1.createTask);
 router.route('/:id')
     .get(taskcontroller_1.getTask)
     .put(taskcontroller_1.updateTask)

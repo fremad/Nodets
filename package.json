@@ -8,7 +8,7 @@
     "start": "node dist/app.js",
     "build-ts": "tsc",
     "watch": "nodemon --watch 'src/**/*.ts' --ignore 'test/**/*.spec.ts' --exec 'ts-node' src/app.ts",
-    "test": "mocha -r ts-node/register test/task.spec.ts"
+    "test": "mocha -r ts-node/register test/Task/taskcontroller.spec.ts"
   },
   "repository": {
     "type": "git",

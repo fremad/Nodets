@@ -1,5 +1,5 @@
 import Router from "express";
-import { getAllTasks, getTask, updateTask, deleteTask } from './BLL/taskcontroller';
+import { getAllTasks, getTask, updateTask, deleteTask, createTask } from './BLL/taskcontroller';
 import passport from 'passport'
 const router = Router();
 
@@ -10,7 +10,7 @@ import { Response, Request, NextFunction } from "express";
  */
 router.route('/')
   .get(getAllTasks)
-  .post()
+  .post(createTask)
 router.route('/:id')
   .get(getTask)
   .put(updateTask)
