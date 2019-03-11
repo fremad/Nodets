@@ -20,7 +20,8 @@ export function getAllTasks(
                     _id: tasks._id,
                     name: tasks.name,
                     description: tasks.description,
-                    estimated_time: tasks.estimated_time
+                    estimated_time: tasks.estimated_time,
+                    status: tasks.status
                 }
             }),
             request: {
@@ -99,6 +100,7 @@ export function updateTask(
     tmp.user = req.body["user"]
     tmp.project = req.body["project"]
     tmp.estimated_time = req.body["estimated_time"]
+    tmp.status = req.body["status"]
 
     DB_updateTask(id, tmp).then((data :any) => {
         res.status(204).json({})

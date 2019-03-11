@@ -8,7 +8,7 @@ const db_1 = require("../database/db");
 function DB_getAllTasks() {
     return new mongoose_1.Promise((resolve, reject) => {
         db_1.Taskmodel.find({})
-            .select('name description estimated_time')
+            .select('name description estimated_time status')
             .exec((err, data) => {
             if (err)
                 reject(err);

@@ -19,6 +19,11 @@ exports.default = new mongoose_1.Schema({
     estimated_time: {
         type: Number,
         required: false
+    },
+    status: {
+        type: String,
+        default: "created",
+        required: true
     }
 });
 //# sourceMappingURL=task-schema.js.map

@@ -13,11 +13,16 @@ export default new Schema({
         required: true,
         maxlength: 500
     },
-    projects: [{type: Schema.Types.ObjectId, ref: 'projectEntry'}],
-    user: [{type: Schema.Types.ObjectId, ref: 'userEntry'}],
+    projects: [{ type: Schema.Types.ObjectId, ref: 'projectEntry' }],
+    user: [{ type: Schema.Types.ObjectId, ref: 'userEntry' }],
     created_date: Date,
     estimated_time: {
         type: Number,
         required: false
+    },
+    status: {
+        type: String,
+        default: "created",
+        required: true
     }
 });

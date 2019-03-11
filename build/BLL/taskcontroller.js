@@ -15,7 +15,8 @@ function getAllTasks(req, res) {
                     _id: tasks._id,
                     name: tasks.name,
                     description: tasks.description,
-                    estimated_time: tasks.estimated_time
+                    estimated_time: tasks.estimated_time,
+                    status: tasks.status
                 };
             }),
             request: {
@@ -79,6 +80,7 @@ function updateTask(req, res) {
     tmp.user = req.body["user"];
     tmp.project = req.body["project"];
     tmp.estimated_time = req.body["estimated_time"];
+    tmp.status = req.body["status"];
     task_acces_1.DB_updateTask(id, tmp).then((data) => {
         res.status(204).json({});
     }, (err) => {
