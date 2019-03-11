@@ -10,6 +10,7 @@ export function DB_getAllTasks() {
 
         Taskmodel.find({})
             .select('name description estimated_time status')
+            .where('status', "created")
             .exec((err: any, data: Task[]) => {
                 if (err) reject(err);
                 resolve(data)
