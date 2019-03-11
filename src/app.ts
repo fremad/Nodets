@@ -19,7 +19,7 @@ app.use(bodyParser.json());
 /**
  * Serve Angular app
  */
-app.use(express.static(__dirname + "/../dist/Webdashboard"));
+// app.use(express.static(__dirname + "/../dist/Webdashboard"));
 
 /**
  * Defining routes for controllers
