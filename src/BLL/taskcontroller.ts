@@ -8,9 +8,9 @@ import { Task } from "../models/task-model";
  */
 export function getAllTasks(
     req: Request,
-    res: Response) {
+    res: Response) { 
 
-    DB_getAllTasks().then((data: Task[]) => {
+    DB_getAllTasks(req.query).then((data: Task[]) => {
 
         //Creating DTO object containing only relevant informartion 
         const response = {
@@ -31,7 +31,7 @@ export function getAllTasks(
         }
 
         res.status(200).json(response)
-    }, (err :any) => {
+    }, (err: any) => {
 
         /**
          * Database query unsuccesful!
@@ -52,10 +52,10 @@ export function createTask(
     tmp.description = req.body['description']
     tmp.estimated_time = req.body['estimated_time']
 
-    DB_createTask(tmp).then((data :any) => {
+    DB_createTask(tmp).then((data: any) => {
         res.status(201).json({ id: data._id })
-    }, (err :any) => {
-        res.status(404).json({msg: 'Creation didn\'t work'})
+    }, (err: any) => {
+        res.status(404).json({ msg: 'Creation didn\'t work' })
     })
 }
 
@@ -71,7 +71,7 @@ export function getTask(
 
     DB_getTask(id).then((data: Task) => {
         res.status(200).json(data)
-    }, (err :any) => {
+    }, (err: any) => {
         /**
         * Database query unsuccesful!
         */
@@ -102,9 +102,9 @@ export function updateTask(
     tmp.estimated_time = req.body["estimated_time"]
     tmp.status = req.body["status"]
 
-    DB_updateTask(id, tmp).then((data :any) => {
+    DB_updateTask(id, tmp).then((data: any) => {
         res.status(204).json({})
-    }, (err :any) => {
+    }, (err: any) => {
         res.status(404).json({ msg: "Update could not be performed" })
         console.log('Error happened')
     })
@@ -119,9 +119,9 @@ export function deleteTask(
 
     const id: string = req.params.id;
 
-    DB_deleteTask(id).then((data :any) => {
+    DB_deleteTask(id).then((data: any) => {
         res.status(204).json({})
-    }, (err :any) => {
+    }, (err: any) => {
         res.status(404).json({ msg: "Not found" })
         console.log("Item couldn't be deleted")
     })

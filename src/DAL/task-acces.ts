@@ -5,12 +5,12 @@ import { Task } from "../models/task-model";
 /**
  * Get all tasks from DB
  */
-export function DB_getAllTasks() {
+export function DB_getAllTasks(search_query: any) {
     return new Promise((resolve: any, reject: any) => {
 
         Taskmodel.find({})
             .select('name description estimated_time status')
-            .where('status', "created")
+            // .where('status', search_query.status)
             .exec((err: any, data: Task[]) => {
                 if (err) reject(err);
                 resolve(data)

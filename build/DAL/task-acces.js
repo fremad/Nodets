@@ -5,11 +5,11 @@ const db_1 = require("../database/db");
 /**
  * Get all tasks from DB
  */
-function DB_getAllTasks() {
+function DB_getAllTasks(search_query) {
     return new mongoose_1.Promise((resolve, reject) => {
         db_1.Taskmodel.find({})
             .select('name description estimated_time status')
-            .where('status', "created")
+            .where("status", search_query.status)
             .exec((err, data) => {
             if (err)
                 reject(err);
