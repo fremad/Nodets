@@ -7,8 +7,7 @@ import { Task } from "../models/task-model";
  */
 export function DB_getAllTasks(search_query: any) {
     return new Promise((resolve: any, reject: any) => {
-
-        Taskmodel.find({})
+        Taskmodel.find({'name' : { $regex: search_query, $options: "$i"}})
             .select('name description estimated_time status')
             // .where('status', search_query.status)
             .exec((err: any, data: Task[]) => {

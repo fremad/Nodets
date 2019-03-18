@@ -6,7 +6,11 @@ const task_model_1 = require("../models/task-model");
  * Retrieves all Tasks
  */
 function getAllTasks(req, res) {
-    task_acces_1.DB_getAllTasks(req.query).then((data) => {
+    let regex = req.query.name;
+    if ((!regex) || (regex === 'undefined')) {
+        regex = '.*';
+    }
+    task_acces_1.DB_getAllTasks(regex).then((data) => {
         //Creating DTO object containing only relevant informartion 
         const response = {
             count: data.length,

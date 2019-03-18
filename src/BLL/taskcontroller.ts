@@ -8,9 +8,14 @@ import { Task } from "../models/task-model";
  */
 export function getAllTasks(
     req: Request,
-    res: Response) { 
+    res: Response) {
 
-    DB_getAllTasks(req.query).then((data: Task[]) => {
+    let regex = req.query.name
+    if ((!regex) || (regex === 'undefined')) {
+        regex = '.*'
+    }
+
+    DB_getAllTasks(regex).then((data: Task[]) => {
 
         //Creating DTO object containing only relevant informartion 
         const response = {

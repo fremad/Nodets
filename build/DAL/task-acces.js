@@ -7,9 +7,9 @@ const db_1 = require("../database/db");
  */
 function DB_getAllTasks(search_query) {
     return new mongoose_1.Promise((resolve, reject) => {
-        db_1.Taskmodel.find({})
+        db_1.Taskmodel.find({ 'name': { $regex: search_query, $options: "$i" } })
             .select('name description estimated_time status')
-            .where("status", search_query.status)
+            // .where('status', search_query.status)
             .exec((err, data) => {
             if (err)
                 reject(err);

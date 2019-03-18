@@ -1,5 +1,6 @@
 import Router from "express";
 import { getAllTasks, getTask, updateTask, deleteTask, createTask } from './BLL/taskcontroller';
+import { getAllProjectTasks, getAllProjects, updateProject, deleteProject, createProject } from './BLL/projectcontroller'
 import passport from 'passport'
 const router = Router();
 
@@ -19,4 +20,12 @@ router.route('/:id')
 /**
  * Additional routes should be placed here
  */
+router.route('/projects')
+  .get(getAllProjects)
+  .post(createProject)
+router.route('/projects:id')
+  .get(getAllProjectTasks)
+  .put(updateProject)
+  .delete(deleteProject)
+
 export default router;
