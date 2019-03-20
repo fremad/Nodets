@@ -13,7 +13,7 @@ exports.default = new mongoose_1.Schema({
         required: true,
         maxlength: 500
     },
-    projects: { type: mongoose_1.Schema.Types.ObjectId, ref: 'projectEntry' },
+    project: { type: mongoose_1.Schema.Types.ObjectId, ref: 'projectEntry' },
     user: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'userEntry' }],
     created_date: Date,
     estimated_time: {

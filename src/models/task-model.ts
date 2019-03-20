@@ -13,6 +13,7 @@ export class Task {
 
 //TODO move to seperate file
 export class Project {
+    _id : any;
     name: string;
     description: string;
     tasks: Task[];

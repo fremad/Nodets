@@ -13,19 +13,18 @@ const router = express_1.default();
 router.route('/')
     .get(taskcontroller_1.getAllTasks)
     .post(taskcontroller_1.createTask);
+router.route('/projects')
+    .get(projectcontroller_1.getAllProjects)
+    .post(projectcontroller_1.createProject);
+router.route('/projects/:id')
+    .get(projectcontroller_1.getProject)
+    .put(projectcontroller_1.updateProject)
+    .delete(projectcontroller_1.deleteProject);
+router.route('/projects/:id/task')
+    .get(projectcontroller_1.getAllProjectTasks);
 router.route('/:id')
     .get(taskcontroller_1.getTask)
     .put(taskcontroller_1.updateTask)
     .delete(taskcontroller_1.deleteTask);
-/**
- * Additional routes should be placed here
- */
-router.route('/projects')
-    .get(projectcontroller_1.getAllProjects)
-    .post(projectcontroller_1.createProject);
-router.route('/projects:id')
-    .get(projectcontroller_1.getAllProjectTasks)
-    .put(projectcontroller_1.updateProject)
-    .delete(projectcontroller_1.deleteProject);
 exports.default = router;
 //# sourceMappingURL=routes.js.map

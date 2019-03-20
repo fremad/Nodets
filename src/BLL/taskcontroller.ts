@@ -26,7 +26,8 @@ export function getAllTasks(
                     name: tasks.name,
                     description: tasks.description,
                     estimated_time: tasks.estimated_time,
-                    status: tasks.status
+                    status: tasks.status,
+                    projects: tasks.project
                 }
             }),
             request: {
@@ -51,11 +52,14 @@ export function getAllTasks(
 export function createTask(
     req: Request,
     res: Response) {
-
+        
     let tmp = new Task()
     tmp.name = req.body['name']
     tmp.description = req.body['description']
+    tmp.project = req.body['project']
     tmp.estimated_time = req.body['estimated_time']
+
+        console.log(tmp)
 
     DB_createTask(tmp).then((data: any) => {
         res.status(201).json({ id: data._id })

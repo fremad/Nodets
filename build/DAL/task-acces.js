@@ -8,7 +8,8 @@ const db_1 = require("../database/db");
 function DB_getAllTasks(search_query) {
     return new mongoose_1.Promise((resolve, reject) => {
         db_1.Taskmodel.find({ 'name': { $regex: search_query, $options: "$i" } })
-            .select('name description estimated_time status')
+            .populate('projects')
+            .select('name description estimated_time status project')
             // .where('status', search_query.status)
             .exec((err, data) => {
             if (err)
@@ -78,10 +79,86 @@ function DB_createTask(task) {
                 reject(err);
             }
             else {
+                db_1.Projectmodel.update({ _id: data.project._id }, { $push: { tasks: data._id } }, (err, data) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    else {
+                        resolve(data);
+                    }
+                });
+            }
+        });
+        // console.log(task.project)
+        // if(task.project){
+        //     DB_getProject(task.project._id).then((data: Project) => {
+        //         task.project = data._id
+        //         Taskmodel.create(task, (err: any, data: any) => {
+        //             if (err) {
+        //                 reject(err)
+        //             }
+        //             else {
+        //                 resolve(data)
+        //             }
+        //         })
+        //     })
+        // }
+    });
+}
+exports.DB_createTask = DB_createTask;
+/**
+ * Get All Projects from DB
+ */
+function DB_getAllProjects() {
+    return new mongoose_1.Promise((resolve, reject) => {
+        db_1.Projectmodel.find({}).exec((err, data) => {
+            if (err) {
+                reject(err);
+            }
+            else {
                 resolve(data);
             }
         });
     });
 }
-exports.DB_createTask = DB_createTask;
+exports.DB_getAllProjects = DB_getAllProjects;
+function DB_createProject(prj) {
+    return new mongoose_1.Promise((resolve, reject) => {
+        db_1.Projectmodel.create(prj, (err, data) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(data);
+            }
+        });
+    });
+}
+exports.DB_createProject = DB_createProject;
+function DB_getProject(id) {
+    return new mongoose_1.Promise((resolve, reject) => {
+        db_1.Projectmodel.findById(id).exec((err, data) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(data);
+            }
+        });
+    });
+}
+exports.DB_getProject = DB_getProject;
+function DB_getAllProjectTasks(id) {
+    return new mongoose_1.Promise((resolve, reject) => {
+        db_1.Projectmodel.findById(id).populate('tasks').exec((err, data) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(data.tasks);
+            }
+        });
+    });
+}
+exports.DB_getAllProjectTasks = DB_getAllProjectTasks;
 //# sourceMappingURL=task-acces.js.map
