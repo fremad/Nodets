@@ -9,6 +9,8 @@ export class Task {
     user: User[];
     estimated_time: number;
     status: string;
+    created_date: Date;
+    completed_time: number;
 }
 
 //TODO move to seperate file

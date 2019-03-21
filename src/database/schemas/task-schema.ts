@@ -15,10 +15,16 @@ export default new Schema({
     },
     project: { type: Schema.Types.ObjectId, ref: 'projectEntry' },
     user: [{ type: Schema.Types.ObjectId, ref: 'userEntry' }],
-    created_date: Date,
+    created_date: {
+        type: Date,
+        default: Date.now()
+    },
     estimated_time: {
         type: Number,
         required: false
+    },
+    completed_time: {
+        type: Number
     },
     status: {
         type: String,

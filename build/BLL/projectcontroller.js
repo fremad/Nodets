@@ -47,10 +47,9 @@ function getProject(req, res) {
 }
 exports.getProject = getProject;
 function getAllProjectTasks(req, res) {
-    console.log("CalledgetallProjectTasks");
     const id = req.params.id;
     task_acces_1.DB_getAllProjectTasks(id).then((data) => {
-        res.status(200).json(data);
+        res.status(200).json({ tasks: data });
     }, (err) => {
         res.status(503).json({});
     });

@@ -52,17 +52,18 @@ export function getAllTasks(
 export function createTask(
     req: Request,
     res: Response) {
-        
+
     let tmp = new Task()
     tmp.name = req.body['name']
     tmp.description = req.body['description']
     tmp.project = req.body['project']
     tmp.estimated_time = req.body['estimated_time']
 
-        console.log(tmp)
+
 
     DB_createTask(tmp).then((data: any) => {
-        res.status(201).json({ id: data._id })
+
+        res.status(201).json({ _id: data._id })
     }, (err: any) => {
         res.status(404).json({ msg: 'Creation didn\'t work' })
     })
@@ -95,7 +96,7 @@ export function updateTask(
     req: Request,
     res: Response) {
 
-    // console.log('Update tasks called')
+    console.log('Update tasks called')
 
     const id: string = req.params.id;
 
@@ -110,6 +111,9 @@ export function updateTask(
     tmp.project = req.body["project"]
     tmp.estimated_time = req.body["estimated_time"]
     tmp.status = req.body["status"]
+    tmp.completed_time = req.body['completed_time']
+
+    console.log(tmp)
 
     DB_updateTask(id, tmp).then((data: any) => {
         res.status(204).json({})

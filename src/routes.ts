@@ -10,20 +10,22 @@ import { Response, Request, NextFunction } from "express";
  *  Routes for the task controller
  */
 router.route('/')
-  .get(getAllTasks)
-  .post(createTask)
+.get(getAllTasks)
+.post(createTask)
 
 router.route('/projects')
-  .get(getAllProjects)
-  .post(createProject)
+.get(getAllProjects)
+.post(createProject)
 
 router.route('/projects/:id')
-  .get(getProject)
-  .put(updateProject)
-  .delete(deleteProject)
+.get(getProject)
+.put(updateProject)
+.delete(deleteProject)
+
 
 router.route('/projects/:id/task')
-  .get(getAllProjectTasks)
+.get(getAllProjectTasks)
+
 router.route('/:id')
   .get(getTask)
   .put(updateTask)

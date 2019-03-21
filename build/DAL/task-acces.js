@@ -74,17 +74,17 @@ exports.DB_updateTask = DB_updateTask;
  */
 function DB_createTask(task) {
     return new mongoose_1.Promise((resolve, reject) => {
-        db_1.Taskmodel.create(task, (err, data) => {
+        db_1.Taskmodel.create(task, (err, taskdata) => {
             if (err) {
                 reject(err);
             }
             else {
-                db_1.Projectmodel.update({ _id: data.project._id }, { $push: { tasks: data._id } }, (err, data) => {
+                db_1.Projectmodel.update({ _id: taskdata.project._id }, { $push: { tasks: taskdata._id } }, (err, data) => {
                     if (err) {
                         reject(err);
                     }
                     else {
-                        resolve(data);
+                        resolve(taskdata);
                     }
                 });
             }

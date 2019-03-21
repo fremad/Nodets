@@ -9,7 +9,6 @@ import { DB_getAllProjects, DB_createProject, DB_getProject, DB_getAllProjectTas
 export function getAllProjects(
     req: Request,
     res: Response) {
-    console.log("Called wrong")
     DB_getAllProjects().then((data: Project[]) => {
         const response = {
             count: data.length,
@@ -64,7 +63,6 @@ export function getProject(
 export function getAllProjectTasks(
     req: Request,
     res: Response) {
-    console.log("CalledgetallProjectTasks")
     const id: string = req.params.id;
 
     DB_getAllProjectTasks(id).then((data: Task[]) => {

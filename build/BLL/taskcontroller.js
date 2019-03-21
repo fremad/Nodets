@@ -11,7 +11,6 @@ function getAllTasks(req, res) {
         regex = '.*';
     }
     task_acces_1.DB_getAllTasks(regex).then((data) => {
-        // console.log(data)
         //Creating DTO object containing only relevant informartion 
         const response = {
             count: data.length,
@@ -43,15 +42,13 @@ exports.getAllTasks = getAllTasks;
  * Creates a Task
  */
 function createTask(req, res) {
-    console.log(req.body['project']._id);
     let tmp = new task_model_1.Task();
     tmp.name = req.body['name'];
     tmp.description = req.body['description'];
     tmp.project = req.body['project'];
     tmp.estimated_time = req.body['estimated_time'];
-    console.log(tmp);
     task_acces_1.DB_createTask(tmp).then((data) => {
-        res.status(201).json({ id: data._id });
+        res.status(201).json({ _id: data._id });
     }, (err) => {
         res.status(404).json({ msg: 'Creation didn\'t work' });
     });
@@ -90,6 +87,7 @@ function updateTask(req, res) {
     tmp.project = req.body["project"];
     tmp.estimated_time = req.body["estimated_time"];
     tmp.status = req.body["status"];
+    tmp.completed_time = req.body['completed_time'];
     task_acces_1.DB_updateTask(id, tmp).then((data) => {
         res.status(204).json({});
     }, (err) => {

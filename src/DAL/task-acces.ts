@@ -71,18 +71,18 @@ export function DB_updateTask(id: string, task: Task) {
 export function DB_createTask(task: Task) {
     return new Promise((resolve: any, reject: any) => {
 
-        Taskmodel.create(task, (err: any, data: any) => {
+        Taskmodel.create(task, (err: any, taskdata: any) => {
             if (err) {
                 reject(err)
             }
             else {
-                Projectmodel.update({ _id: data.project._id },
-                    { $push: { tasks: data._id } }, (err: any, data: any) => {
+                Projectmodel.update({ _id: taskdata.project._id },
+                    { $push: { tasks: taskdata._id } }, (err: any, data: any) => {
                         if (err) {
                             reject(err)
                         }
                         else {
-                            resolve(data)
+                            resolve(taskdata)
                         }
                     })
             }

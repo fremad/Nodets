@@ -15,10 +15,16 @@ exports.default = new mongoose_1.Schema({
     },
     project: { type: mongoose_1.Schema.Types.ObjectId, ref: 'projectEntry' },
     user: [{ type: mongoose_1.Schema.Types.ObjectId, ref: 'userEntry' }],
-    created_date: Date,
+    created_date: {
+        type: Date,
+        default: Date.now()
+    },
     estimated_time: {
         type: Number,
         required: false
+    },
+    completed_time: {
+        type: Number
     },
     status: {
         type: String,
