@@ -74,7 +74,7 @@ exports.getTask = getTask;
  * Updates an existing task
  */
 function updateTask(req, res) {
-    // console.log('Update tasks called')
+    console.log('Update tasks called');
     const id = req.params.id;
     //TODO make this into a ctor of Task (cleaner)
     let tmp = new task_model_1.Task();
@@ -88,6 +88,7 @@ function updateTask(req, res) {
     tmp.estimated_time = req.body["estimated_time"];
     tmp.status = req.body["status"];
     tmp.completed_time = req.body['completed_time'];
+    console.log(tmp);
     task_acces_1.DB_updateTask(id, tmp).then((data) => {
         res.status(204).json({});
     }, (err) => {
