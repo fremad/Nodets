@@ -26,6 +26,9 @@ export default new Schema({
     completed_time: {
         type: Number
     },
+    completed_date: {
+        type: Date,
+    },
     status: {
         type: String,
         default: "created",

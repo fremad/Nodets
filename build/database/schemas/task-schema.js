@@ -26,6 +26,9 @@ exports.default = new mongoose_1.Schema({
     completed_time: {
         type: Number
     },
+    completed_date: {
+        type: Date,
+    },
     status: {
         type: String,
         default: "created",

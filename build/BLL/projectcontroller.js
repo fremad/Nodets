@@ -55,12 +55,32 @@ function getAllProjectTasks(req, res) {
     });
 }
 exports.getAllProjectTasks = getAllProjectTasks;
-function updateProject() {
-    throw "Not implemented yet";
+// export function updateProject() {
+//     throw "Not implemented yet"
+// }
+// export function deleteProject() {
+//     throw "Not implemented yet"
+// }
+function getProjectWeekStats(req, res) {
+    const id = req.params.id;
+    task_acces_1.DB_getProjectStats(id).then((data) => {
+        data = data.filter(res => {
+            if (res.completed_date) {
+                return res;
+            }
+        });
+        //Make it 5 days ago
+        let date = new Date();
+        date.setDate(date.getDate() - 5);
+        console.log(date);
+        data = data.filter(res => {
+            if (res.completed_date.getTime() > date.getTime()) {
+                return res.completed_time;
+            }
+        });
+        console.log(data);
+        res.status(200).json(data);
+    });
 }
-exports.updateProject = updateProject;
-function deleteProject() {
-    throw "Not implemented yet";
-}
-exports.deleteProject = deleteProject;
+exports.getProjectWeekStats = getProjectWeekStats;
 //# sourceMappingURL=projectcontroller.js.map

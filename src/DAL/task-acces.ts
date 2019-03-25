@@ -9,7 +9,7 @@ export function DB_getAllTasks(search_query: any) {
     return new Promise((resolve: any, reject: any) => {
         Taskmodel.find({ 'name': { $regex: search_query, $options: "$i" } })
             .populate('projects')
-            .select('name description estimated_time status project')
+            .select('name description estimated_time status project created_date')
             // .where('status', search_query.status)
             .exec((err: any, data: Task[]) => {
                 if (err) reject(err);
@@ -152,6 +152,20 @@ export function DB_getProject(id: string) {
 export function DB_getAllProjectTasks(id: string) {
     return new Promise((resolve: any, reject: any) => {
         Projectmodel.findById(id).populate('tasks').exec((err: any, data: Project) => {
+            if (err) {
+                reject(err)
+            }
+            else {
+                resolve(data.tasks)
+            }
+        })
+    })
+}
+
+//TODO selecting by date part of query (FOR SPEEDUP) 
+export function DB_getProjectStats(id: string) {
+    return new Promise((resolve: any, reject: any) => {
+        Projectmodel.findById(id).populate('tasks').select('tasks').exec((err, data) => {
             if (err) {
                 reject(err)
             }

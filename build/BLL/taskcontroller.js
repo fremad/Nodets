@@ -2,6 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const task_acces_1 = require("../DAL/task-acces");
 const task_model_1 = require("../models/task-model");
+const formidable_1 = require("formidable");
 /**
  * Retrieves all Tasks
  */
@@ -20,6 +21,7 @@ function getAllTasks(req, res) {
                     name: tasks.name,
                     description: tasks.description,
                     estimated_time: tasks.estimated_time,
+                    created_date: tasks.created_date,
                     status: tasks.status,
                     projects: tasks.project
                 };
@@ -88,7 +90,10 @@ function updateTask(req, res) {
     tmp.estimated_time = req.body["estimated_time"];
     tmp.status = req.body["status"];
     tmp.completed_time = req.body['completed_time'];
-    console.log(tmp);
+    //Todo THIS IS A HOTFIX!!! not the right way to do it.
+    if (req.body['completed_time']) {
+        tmp.completed_date = new Date(Date.now());
+    }
     task_acces_1.DB_updateTask(id, tmp).then((data) => {
         res.status(204).json({});
     }, (err) => {
@@ -110,4 +115,15 @@ function deleteTask(req, res) {
     });
 }
 exports.deleteTask = deleteTask;
+function examplefileupload(req, res) {
+    const form = new formidable_1.IncomingForm();
+    form.on("file", (field, file) => {
+        console.log(file.name);
+    });
+    form.on('end', () => {
+        res.status(200).json({ msg: "no data" });
+    });
+    form.parse(req);
+}
+exports.examplefileupload = examplefileupload;
 //# sourceMappingURL=taskcontroller.js.map

@@ -2,6 +2,7 @@ import { Response, Request, NextFunction } from "express";
 import { DB_getAllTasks, DB_getTask, DB_deleteTask, DB_updateTask, DB_createTask } from "../DAL/task-acces";
 import { AllTasksDTO } from "../dtomodels/taskdto";
 import { Task } from "../models/task-model";
+import { IncomingForm } from "formidable"
 
 /**
  * Retrieves all Tasks
@@ -26,6 +27,7 @@ export function getAllTasks(
                     name: tasks.name,
                     description: tasks.description,
                     estimated_time: tasks.estimated_time,
+                    created_date: tasks.created_date,
                     status: tasks.status,
                     projects: tasks.project
                 }
@@ -111,9 +113,12 @@ export function updateTask(
     tmp.project = req.body["project"]
     tmp.estimated_time = req.body["estimated_time"]
     tmp.status = req.body["status"]
-    tmp.completed_time = req.body['completed_time']
 
-    console.log(tmp)
+    tmp.completed_time = req.body['completed_time']
+    //Todo THIS IS A HOTFIX!!! not the right way to do it.
+    if(req.body['completed_time']) {
+        tmp.completed_date = new Date(Date.now())
+    }
 
     DB_updateTask(id, tmp).then((data: any) => {
         res.status(204).json({})
@@ -138,4 +143,21 @@ export function deleteTask(
         res.status(404).json({ msg: "Not found" })
         console.log("Item couldn't be deleted")
     })
+}
+
+export function examplefileupload(
+    req: Request,
+    res: Response) {
+
+    const form = new IncomingForm()
+
+    form.on("file", (field, file) => {
+        console.log(file.name)
+    })
+    form.on('end', () => {
+        
+        res.status(200).json({ msg: "no data" })
+    })
+    
+    form.parse(req)
 }

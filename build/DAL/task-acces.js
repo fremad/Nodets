@@ -9,7 +9,7 @@ function DB_getAllTasks(search_query) {
     return new mongoose_1.Promise((resolve, reject) => {
         db_1.Taskmodel.find({ 'name': { $regex: search_query, $options: "$i" } })
             .populate('projects')
-            .select('name description estimated_time status project')
+            .select('name description estimated_time status project created_date')
             // .where('status', search_query.status)
             .exec((err, data) => {
             if (err)
@@ -161,4 +161,18 @@ function DB_getAllProjectTasks(id) {
     });
 }
 exports.DB_getAllProjectTasks = DB_getAllProjectTasks;
+//TODO selecting by date part of query (FOR SPEEDUP) 
+function DB_getProjectStats(id) {
+    return new mongoose_1.Promise((resolve, reject) => {
+        db_1.Projectmodel.findById(id).populate('tasks').select('tasks').exec((err, data) => {
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve(data.tasks);
+            }
+        });
+    });
+}
+exports.DB_getProjectStats = DB_getProjectStats;
 //# sourceMappingURL=task-acces.js.map

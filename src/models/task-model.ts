@@ -11,6 +11,7 @@ export class Task {
     status: string;
     created_date: Date;
     completed_time: number;
+    completed_date: Date;
 }
 
 //TODO move to seperate file
