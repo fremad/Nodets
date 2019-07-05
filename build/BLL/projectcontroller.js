@@ -72,14 +72,27 @@ function getProjectWeekStats(req, res) {
         //Make it 5 days ago
         let date = new Date();
         date.setDate(date.getDate() - 5);
-        console.log(date);
+        // console.log(date)
         data = data.filter(res => {
             if (res.completed_date.getTime() > date.getTime()) {
-                return res.completed_time;
+                return res;
             }
         });
-        console.log(data);
-        res.status(200).json(data);
+        /**
+         * Map and return data
+         */
+        const tmp = data
+            .map(res => { return res.completed_time; })
+            .reduce((accumulator, currentValue) => { return accumulator + currentValue; });
+        const hep = data
+            .map(res => { return res.estimated_time; })
+            .reduce((accumulator, currentValue) => { return accumulator + currentValue; });
+        const response = {
+            completed_time: tmp,
+            completed_time_estimate: hep,
+            nr_completed_tasks: data.length
+        };
+        res.status(200).json(response);
     });
 }
 exports.getProjectWeekStats = getProjectWeekStats;
